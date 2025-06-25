@@ -20,6 +20,14 @@ const Feedback = ({ handleGoodClick, handleNeutralClick, handleBadClick }) => {
 }
 
 const Statistics = ({ good, neutral, bad }) => {
+  if (good === 0 && neutral === 0 && bad === 0) {
+    return (
+      <div>
+        <h2>Statistics</h2>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
   const total = good + neutral + bad;
   const average = (good - bad) / total;
   const positive = (good / total) * 100;
