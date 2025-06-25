@@ -5,7 +5,12 @@ const Button = ({ onClick, text }) => {
 }
 
 const StatisticLine = ({ name, value }) => {
-  return <p>{name} {value}</p>
+  return (
+    <tr>
+      <th scope="row">{name}</th>
+      <td>{value}</td>
+    </tr>
+  )
 }
 
 const Feedback = ({ handleGoodClick, handleNeutralClick, handleBadClick }) => {
@@ -20,7 +25,11 @@ const Feedback = ({ handleGoodClick, handleNeutralClick, handleBadClick }) => {
 }
 
 const Statistics = ({ good, neutral, bad }) => {
-  if (good === 0 && neutral === 0 && bad === 0) {
+  const total = good + neutral + bad;
+  const average = (good - bad) / total;
+  const positive = (good / total) * 100;
+
+  if (!total) {
     return (
       <div>
         <h2>Statistics</h2>
@@ -28,18 +37,20 @@ const Statistics = ({ good, neutral, bad }) => {
       </div>
     )
   }
-  const total = good + neutral + bad;
-  const average = (good - bad) / total;
-  const positive = (good / total) * 100;
+
   return (
     <div>
       <h2>Statistics</h2>
-      <StatisticLine name="Good" value={good}></StatisticLine>
-      <StatisticLine name="Neutral" value={neutral}></StatisticLine>
-      <StatisticLine name="Bad" value={bad}></StatisticLine>
-      <StatisticLine name="All" value={total}></StatisticLine>
-      <StatisticLine name="Average" value={average}></StatisticLine>
-      <StatisticLine name="Positive" value={positive}></StatisticLine>
+      <table>
+        <tbody>
+          <StatisticLine name="Good" value={good}></StatisticLine>
+          <StatisticLine name="Neutral" value={neutral}></StatisticLine>
+          <StatisticLine name="Bad" value={bad}></StatisticLine>
+          <StatisticLine name="All" value={total}></StatisticLine>
+          <StatisticLine name="Average" value={average}></StatisticLine>
+          <StatisticLine name="Positive" value={positive}></StatisticLine>
+        </tbody>
+      </table>
     </div>
   )
 }
